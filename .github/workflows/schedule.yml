@@ -26,7 +26,10 @@ jobs:
 
       - name: Run your script
         run: python3 main.py
-
+        
+      - name: List files to debug
+        run: ls -l nse_data/
+        
       - name: Commit and push scraped data
         run: |
           git config user.name "github-actions"
