@@ -31,15 +31,18 @@ jobs:
         run: |
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
-          # Add all json files matching pattern (adjust folder if needed)
-          git add nse_data/nse_preopen_*.json
-      
-          # Commit with a message including timestamp or generic
-          git commit -m "Add scraped data file $(date +'%Y-%m-%d %H:%M:%S')" || echo "No changes to commit"
-      
-          # Push changes back to the branch (e.g., main)
-          git push
-        env:
-          # Use GitHub token for authentication (provided automatically)
+          
+          # Check if folder exists and has files before adding
+          if [ -d "nse_data" ] && ls nse_data/nse_preopen_*.json 1> /dev/null 2>&1; then
+            git add nse_data/nse_preopen_*.json
+            git commit -m "Add scraped data file $(date +'%Y-%m-%d %H:%M:%S')" || echo "No changes to commit"
+            
+            # Set remote URL with token for auth
+            git remote set-url origin https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }}.git
+            
+            git push origin HEAD:${{ github.ref_name }}
+          else
+            echo "No new scraped files to commit"
+          fi
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
