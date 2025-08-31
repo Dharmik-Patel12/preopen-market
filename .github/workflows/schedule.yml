@@ -26,3 +26,8 @@ jobs:
 
       - name: Run your script
         run: python main.py
+      - name: Upload output file
+        uses: actions/upload-artifact@v3
+        with:
+          name: nse_preopen_data
+          path: nse_preopen_*.json
