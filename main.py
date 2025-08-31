@@ -87,9 +87,10 @@ def scrape_nse_data():
               print(f"An error occurred: {e}")
     
     timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M")
-    filename = f"nse_preopen_{timestamp}.json"
+    os.makedirs("nse_data", exist_ok=True)
+    filename = f"nse_data/nse_preopen_{timestamp}.json"
     if len(all_data) >0:
-    
+        
         with open(filename, "w", encoding="utf-8") as f:
             json.dump(all_data, f, indent=2)
         
