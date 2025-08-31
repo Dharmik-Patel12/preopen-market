@@ -25,7 +25,7 @@ jobs:
           pip install -r requirements.txt
 
       - name: Run your script
-        run: python main.py
+        run: python3 main.py
 
       - name: Commit and push scraped data
         run: |
