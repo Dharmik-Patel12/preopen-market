@@ -4,7 +4,10 @@ on:
   
   schedule:
     # Runs at 6:00 AM, 2:00 PM, and 10:00 PM UTC daily
-    - cron: '*/5 * * * *' 
+    # - cron: '*/5 * * * *' 
+    - cron: '30 9 * * *'   # 3:00 PM IST
+    - cron: '5 9 * * *'    # 2:35 PM IST
+    - cron: '30 11 * * *'  # 5:00 PM IST
     # - cron: '30 8,14,22 * * *'
     # - cron: '12 8 * * *'
   workflow_dispatch: 
