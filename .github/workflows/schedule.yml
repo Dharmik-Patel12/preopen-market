@@ -1,12 +1,13 @@
 name: Scheduled Selenium Scraper
 
 on:
-  workflow_dispatch:
+  
   schedule:
     # Runs at 6:00 AM, 2:00 PM, and 10:00 PM UTC daily
-    - cron: '30 8,14,22 * * *'
+    - cron: '*/5 * * * *' 
+    # - cron: '30 8,14,22 * * *'
     # - cron: '12 8 * * *'
-    
+  workflow_dispatch: 
 permissions:
   contents: write
 jobs:
