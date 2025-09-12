@@ -42,6 +42,7 @@ def get_cookies():
 
 def scrape_nse_data():
     print("Starting scrape job...")
+    session = requests.Session()
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36",
         "Accept-Language": "en-US,en;q=0.9",
@@ -62,6 +63,11 @@ def scrape_nse_data():
         global all_data
         all_data = []
         cookies = get_cookies()
+        homepage_url = "https://www.nseindia.com"
+        response = session.get(homepage_url, headers=headers, cookies=cookies, timeout=5)
+
+        # Wait to simulate human behavior (and avoid bot detection)
+        time.sleep(1)
         for x in Category:
             # URL for the API
           api_url = "https://www.nseindia.com/api/market-data-pre-open?key=" + x
@@ -72,7 +78,7 @@ def scrape_nse_data():
               # # Make an initial request to obtain necessary cookies
               # session.get("https://www.nseindia.com", headers=headers)
               # response = session.get(url, headers=headers)
-              response = requests.get(api_url, headers=headers, cookies=cookies)
+              response = session.get(api_url, headers=headers, cookies=cookies)
     
               # Check if the request was successful
               if response.status_code == 200:
